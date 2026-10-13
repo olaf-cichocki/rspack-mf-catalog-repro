@@ -47,7 +47,7 @@ for (const [bundler, name] of [
   [webpack, 'webpack'],
 ]) {
   const output = await build(bundler, name);
-  const emitted = new Set(readFileSync(output, 'utf8').match(consumePattern[name]));
+  const emitted = [...new Set(readFileSync(output, 'utf8').match(consumePattern[name]))].sort();
   const run = spawnSync(process.execPath, [output], { encoding: 'utf8' });
 
   console.log(`\n=== ${name} ===`);
