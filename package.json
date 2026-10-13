@@ -2,7 +2,8 @@
   "name": "rspack-mf-catalog-repro",
   "private": true,
   "scripts": {
-    "repro": "node build.mjs"
+    "repro": "node build.mjs",
+    "scenarios": "node scenarios.mjs"
   },
   "dependencies": {
     "lib": "workspace:*",

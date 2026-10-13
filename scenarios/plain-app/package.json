@@ -1,0 +1,7 @@
+{
+  "name": "plain-app",
+  "private": true,
+  "dependencies": {
+    "react": "^19.0.0"
+  }
+}

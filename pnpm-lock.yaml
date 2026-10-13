@@ -33,6 +33,24 @@ importers:
 
   packages/lib: {}
 
+  scenarios/catalog-app:
+    dependencies:
+      react:
+        specifier: 'catalog:'
+        version: 19.3.0
+
+  scenarios/plain-app:
+    dependencies:
+      react:
+        specifier: ^19.0.0
+        version: 19.3.0
+
+  scenarios/workspace-app:
+    dependencies:
+      lib:
+        specifier: workspace:*
+        version: link:../../packages/lib
+
 packages:
 
   '@emnapi/core@1.11.3':
