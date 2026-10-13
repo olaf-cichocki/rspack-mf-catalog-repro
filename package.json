@@ -1,0 +1,15 @@
+{
+  "name": "rspack-mf-catalog-repro",
+  "private": true,
+  "scripts": {
+    "repro": "node build.mjs"
+  },
+  "dependencies": {
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@module-federation/runtime-tools": "2.9.2",
+    "@rspack/core": "2.2.8",
+    "webpack": "5.111.1"
+  }
+}
