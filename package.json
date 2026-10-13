@@ -5,6 +5,7 @@
     "repro": "node build.mjs"
   },
   "dependencies": {
+    "lib": "workspace:*",
     "react": "catalog:"
   },
   "devDependencies": {

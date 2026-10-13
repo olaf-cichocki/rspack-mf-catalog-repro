@@ -18,10 +18,20 @@ const configFor = (bundler, name) => ({
   plugins: [
     new bundler.container.ModuleFederationPlugin({
       name: 'host',
-      shared: { react: { singleton: true } },
+      shared: {
+        react: { singleton: true },
+        lib: { singleton: true },
+      },
     }),
   ],
 });
+
+// Rspack emits consume data with a `requiredVersion` string. webpack picks a loader instead:
+// `loadSingleton(...)` has no version check, `loadSingletonVersion(..., [range])` has one.
+const consumePattern = {
+  rspack: /shareKey: "[^"]+",\s*import: [^,]+,\s*requiredVersion: [^,]+/g,
+  webpack: /load\w*\("default", "[^"]+", (?:false|true)(?:, \[[^\]]*\])?/g,
+};
 
 const build = (bundler, name) =>
   new Promise((resolve, reject) => {
@@ -37,10 +47,10 @@ for (const [bundler, name] of [
   [webpack, 'webpack'],
 ]) {
   const output = await build(bundler, name);
-  const emitted = readFileSync(output, 'utf8').match(/requiredVersion:\s*"[^"]*"/g) ?? ['(no requiredVersion string emitted)'];
+  const emitted = new Set(readFileSync(output, 'utf8').match(consumePattern[name]));
   const run = spawnSync(process.execPath, [output], { encoding: 'utf8' });
 
   console.log(`\n=== ${name} ===`);
-  console.log('emitted:', [...new Set(emitted)].join(', '));
+  for (const site of emitted) console.log(`emitted: ${site.replace(/\s+/g, ' ')}`);
   console.log((run.stdout + run.stderr).trim());
 }

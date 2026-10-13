@@ -14,6 +14,9 @@ importers:
 
   .:
     dependencies:
+      lib:
+        specifier: workspace:*
+        version: link:packages/lib
       react:
         specifier: 'catalog:'
         version: 19.3.0
@@ -27,6 +30,8 @@ importers:
       webpack:
         specifier: 5.111.1
         version: 5.111.1
+
+  packages/lib: {}
 
 packages:
 
